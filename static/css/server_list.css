@@ -1,0 +1,48 @@
+#server-list {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.server-item {
+    height: 80px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+    color: #282c34;
+    border-radius: 5px;
+}
+
+.server-item:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+#server-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background: linear-gradient(0deg, rgba(40,44,52,1) 80%, rgba(0,0,0,0) 100%);
+    padding: 10px;
+    z-index: 100;
+}
+
+#btn-create-server {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 0;
+    padding: 12px;
+    margin-top: -40px;
+    box-shadow: 0px 0px 6px 3px rgba(0,0,0,0.43);
+    cursor: pointer;
+}
+
+#btn-create-server:hover {
+    background-color: rgb(180, 180, 180);
+}
+
+#btn-create-server img {
+    width: 35px;
+}

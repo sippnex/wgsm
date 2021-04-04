@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>Server</title>
+      <link rel="shortcut icon" href="/static/img/logo.svg">
+      <link rel="stylesheet" href="/static/css/base.css">
+      <link rel="stylesheet" href="/static/css/server_list.css">
+      <script src="https://cdn.socket.io/4.0.0/socket.io.min.js" integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div id="version-label"><span id="version-title">alpha</span> (v{{ app_version }})</div>
+      <div id="container">
+         <header id="header">
+            <img src="/static/img/logo.svg" alt="WGSM Logo" id="header-logo"/>
+            <a href="/" id="header-title">WGSM</a>
+            <a href="/list" class="header-item header-item-active">Server</a>
+          </header>
+          <div id="server-list"></div>
+          <div id="server-actions">
+            <button id="btn-create-server">
+               <img src="/static/img/plus.svg">
+            </button>
+          </div>
+        </div>
+      </div>
+      <script src="/static/js/server_list.js" type="text/javascript"></script>
+   </body>
+</html>

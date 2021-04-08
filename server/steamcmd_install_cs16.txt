@@ -1,0 +1,6 @@
+@ShutdownOnFailedCommand 1 //set to 0 if updating multiple servers at once
+@NoPromptForPassword 1
+login anonymous
+force_install_dir /home/julian/github/wgsm/cs16_ds
+app_update 90 validate
+quit

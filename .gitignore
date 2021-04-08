@@ -23,7 +23,10 @@ pip-log.txt
 #Translations
 *.mo
 
-#Mr Developer
+# Mr Developer
 venv
 *.pyc
 build
+
+# Steamcmd
+steamcmd

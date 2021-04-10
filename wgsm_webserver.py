@@ -40,13 +40,13 @@ def trigger_server_list_refresh():
 
 @socketio.on('action server create')
 def action_server_create(json):
-    wgsm_core.create_server(json['serverName'], 'csgo')
+    wgsm_core.create_server('csgo', json['serverName'])
     emit_server_list_refresh()
 
 
 @socketio.on('action server start')
 def action_server_start(json):
-    wgsm_core.start_server(json['serverName'], 'csgo')
+    wgsm_core.start_server('csgo', json['serverName'])
     emit_server_list_refresh()
 
 

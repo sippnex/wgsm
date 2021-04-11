@@ -15,7 +15,12 @@ def command_list(argv):
 
 def command_validate(argv):
     if len(argv) == 3:
-        wgsm_core.validate_installation(argv[2])
+        success = wgsm_core.validate_installation(argv[2])
+        if success == True:
+            print('Validation successful')
+        else:
+            print('Validation failed')
+
     else:
         invalid_arguments()
 
@@ -29,14 +34,14 @@ def command_install(argv):
 
 def command_create(argv):
     if len(argv) == 4:
-        wgsm_core.create_server(argv[2], arg[3])
+        wgsm_core.create_server(argv[2], argv[3])
     else:
         invalid_arguments()
 
 
 def command_start(argv):
     if len(argv) == 4:
-        wgsm_core.start_server(argv[2], arg[3])
+        wgsm_core.start_server(argv[2], argv[3])
     else:
         invalid_arguments()
 

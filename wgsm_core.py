@@ -51,15 +51,18 @@ def validate_installation(game):
     if not game_exists(game):
         unknown_game(game)
         return
-    game_servers[game].validate_installation()
+    return game_servers[game].validate_installation()
 
 
 def install(game):
     if not game_exists(game):
         unknown_game(game)
         return
+    if validate_installation(game):
+        print(f'game-server \'{game}\' already installed')
+        return
     print(f'installing game-server \'{game}\'')
-    game_servers[game].install()
+    return game_servers[game].install()
 
 
 def create_server(game, server_name):
@@ -78,19 +81,25 @@ def start_server(game, server_name):
     if not game_exists(game):
         unknown_game(game)
         return
-    server_sessions = [s for s in tmux_server.sessions if re.search('^wgsm#' + game + '#' + server_name, s.get('session_name'))]
+    server_sessions = [s for s in tmux_server.sessions if
+                       re.search('^wgsm#' + game + '#' + server_name, s.get('session_name'))]
     if len(server_sessions) == 0:
         server_not_found(server_name)
         return
-    if game_servers[game].validate_installation() == False:
-        install_server(game)
+    if not game_servers[game].validate_installation():
+        success = install(game)
+        if not success:
+            print(f'installation of game \'{game}\' failed')
+            return
     print(f'starting server \'{server_name}\'')
     server_session = server_sessions[0]
     game_servers[game].start(server_session)
 
+
 def start_observing():
     observer_thread = ObserverThread(tmux_server)
     observer_thread.start()
+
 
 tmux_server = libtmux.Server()
 

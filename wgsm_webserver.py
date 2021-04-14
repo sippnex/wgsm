@@ -9,7 +9,6 @@ app_version = '0.1.0'
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-
 def emit_server_list_refresh():
     servers = wgsm_core.get_servers()
     servers_as_json = list(

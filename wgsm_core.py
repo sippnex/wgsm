@@ -44,7 +44,7 @@ def game_exists(game):
 
 
 def get_servers():
-    return [s for s in tmux_server.sessions if re.search('^wgsm#server(#.*)*', s.get('session_name'))]
+    return [s for s in tmux_server.sessions if re.search('^wgsm(#.*)*', s.get('session_name'))]
 
 
 def validate_installation(game):

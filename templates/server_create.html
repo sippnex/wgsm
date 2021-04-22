@@ -5,7 +5,6 @@
       <title>Server</title>
       <link rel="shortcut icon" href="/static/img/logo.svg">
       <link rel="stylesheet" href="/static/css/base.css">
-      <link rel="stylesheet" href="/static/css/server_create.css">
       <script src="https://cdn.socket.io/4.0.0/socket.io.min.js" integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy" crossorigin="anonymous"></script>
    </head>
    <body>
@@ -15,25 +14,25 @@
             <img src="/static/img/logo.svg" alt="WGSM Logo" id="header-logo"/>
             <a href="/" id="header-title">WGSM</a>
             <a href="/list" class="header-item header-item-active">Server</a>
-          </header>
-          <div id="form-group">
-            <h2>New Gameserver</h2>
+         </header>
+         <div class="form-group">
+            <h2>Create Gameserver</h2>
              <div class="form-control">
-               <label for="form-control-server-name">Servername:</label>
-               <input id="form-control-server-name" placeholder="Enter a server name" />
+               <label for="server-name">Servername</label>
+               <input name="server-name" id="form-control-server-name" placeholder="Enter a server name" />
              </div>
              <div class="form-control">
-                <label for="form-control-game">Game:</label>
-                <select id="form-control-game">
+                <label for="game">Game</label>
+                <select name="game" id="form-control-game">
                    <option selected>Select a game</option>
                    <option>Counter Strike: Global Offensive</option>
                 </select>
              </div>
-             <div id="form-actions">
+             <div class="form-actions">
                 <button id="form-action-cancel">Cancel</button>
-                <button id="form-action-submit">Create Server</button>
+                <button id="form-action-submit">Create</button>
              </div>
-          </div>
+         </div>
         </div>
       </div>
       <script src="/static/js/server_create.js" type="text/javascript"></script>

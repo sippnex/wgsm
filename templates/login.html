@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <title>WGSM</title>
+      <link rel="shortcut icon" href="/static/img/logo.svg">
+      <link rel="stylesheet" href="/static/css/base.css">
+      <script src="https://cdn.socket.io/4.0.0/socket.io.min.js" integrity="sha384-DkkWv9oJFWLIydBXXjkBWnG1/fuVhw8YPBq37uvvD6WSYRFRqr21eY5Dg9ZhmWdy" crossorigin="anonymous"></script>
+   </head>
+   <body>
+      <div id="version-label"><span id="version-title">alpha</span> (v{{ app_version }})</div>
+      <div id="container">
+         <header id="header">
+            <img src="/static/img/logo.svg" alt="WGSM Logo" id="header-logo"/>
+            <a href="/" id="header-title">WGSM</a>
+        </header>
+        <form class="form-group" method="POST">
+         <h2>Login to WGSM</h2>
+         <div class="form-control">
+            <label for="username">Username</label>
+            <input name="username" placeholder="Username" autofocus/>
+         </div>
+         <div class="form-control">
+            <label for="password">Password</label>
+            <input name="password" type="password" placeholder="Password"/>
+         </div>
+         <div class="form-actions">
+            <button type="submit" action>Login</button>
+         </div>
+         {% if (error is defined and error != None) %}
+            <p class="form-error">{{error}}</p>
+         {% endif %}
+        </form>
+      </div>
+   </body>
+</html>

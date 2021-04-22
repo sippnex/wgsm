@@ -1,3 +1,5 @@
+/* Basic styling */
+
 html, body {
   height: 100%;
 }
@@ -12,6 +14,50 @@ body {
   background-color: #282c34;
   color: white;
 }
+
+/* Forms */
+
+.form-group {
+  margin: 0 auto;
+  width: 50%;
+  min-width: 200px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.form-control {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+}
+
+.form-actions {
+  margin: 8px 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.form-error {
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(170, 67, 67);
+  color: white;
+}
+
+.form-control > *, .form-actions > * {
+  box-sizing: border-box;
+  margin: 4px;
+  font-size: 16px;
+  flex: 1;
+}
+
+/* Version label */
 
 #version-label {
   position: fixed;
@@ -32,11 +78,7 @@ body {
   font-weight: bold;
 }
 
-#container {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-}
+/* Header */
 
 #header {
   display: flex;
@@ -70,4 +112,10 @@ body {
 
 .header-item-active {
   font-weight: bold;
+}
+
+#container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }

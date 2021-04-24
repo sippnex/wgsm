@@ -1,4 +1,4 @@
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect(window.location.protocol + '//' + window.location.host);
 
 document.querySelector('#form-action-cancel').addEventListener('click', () => {
     window.location.href = '/list';

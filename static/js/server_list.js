@@ -1,4 +1,4 @@
-const socket = io.connect('http://localhost:5000');
+const socket = io.connect(window.location.protocol + '//' + window.location.host);
 socket.emit('trigger server list refresh');
 // socket.emit('trigger server list refresh', {'serverName': 'csgo'});
 socket.on('server list refresh', serverList => {

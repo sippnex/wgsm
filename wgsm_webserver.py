@@ -5,14 +5,18 @@ from flask_socketio import SocketIO, emit, disconnect
 from re import search
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from passlib.apache import HtpasswdFile
+import configparser
 
 import wgsm_core
+
+config = configparser.ConfigParser()
+config.read('wgsm.ini')
 
 app_version = '0.1.0'
 
 app = Flask(__name__)
 app.secret_key = '123456789'
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins=config['WGSM']['ProxyUrl'])
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'page_login'

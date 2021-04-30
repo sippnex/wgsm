@@ -2,6 +2,9 @@ import libtmux
 import threading
 import time
 import re
+import configparser
+import os.path
+import subprocess
 
 from server.csgo.csgo_server import CsgoServer
 
@@ -21,6 +24,10 @@ class ObserverThread(threading.Thread):
                 server_name = attributes[2]
                 game_servers[game].process_server_output(server_name, output.copy())
             time.sleep(2)
+
+
+def get_config():
+    return config
 
 
 def unknown_game(game):
@@ -52,6 +59,27 @@ def validate_installation(game):
         unknown_game(game)
         return
     return game_servers[game].validate_installation()
+
+
+def init_wgsm():
+    # TODO: check steamcmd installation
+    if not os.path.isfile(config['Core']['SteamCMD'] + '/steamcmd.sh'):
+        print('steamcmd is not installed')
+        install_steamcmd()
+    else:
+        print('steamcmd is installed')
+
+
+def install_steamcmd():
+    # TODO: install steamcmd
+    #curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+    print('install steamcmd')
+    if not os.path.exists(config['Core']['SteamCMD']):
+        os.makedirs(config['Core']['SteamCMD'])
+    cmd = 'curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz" | tar zxvf - -C ' + config['Core']['SteamCMD']
+    ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    print(output)
 
 
 def install(game):
@@ -101,6 +129,8 @@ def start_observing():
     observer_thread.start()
 
 
+config = configparser.ConfigParser()
+config.read('wgsm.ini')
 tmux_server = libtmux.Server()
 
 game_servers = {

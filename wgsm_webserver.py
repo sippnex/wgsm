@@ -16,7 +16,7 @@ app_version = '0.1.0'
 
 app = Flask(__name__)
 app.secret_key = '123456789'
-socketio = SocketIO(app, cors_allowed_origins=config['WGSM']['ProxyUrl'])
+socketio = SocketIO(app, cors_allowed_origins=wgsm_core.get_config()['Webserver']['ProxyUrl'])
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'page_login'
@@ -116,4 +116,5 @@ def trigger_server_list_refresh():
 
 
 if __name__ == '__main__':
+    wgsm_core.init_wgsm()
     socketio.run(app)

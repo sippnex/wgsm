@@ -76,7 +76,7 @@ def install_game(game):
     if not game_exists(game):
         unknown_game(game)
         return
-    if validate_installation(game):
+    if validate_game(game):
         print(f'game-server \'{game}\' already installed')
         return
     print(f'installing game-server \'{game}\'')

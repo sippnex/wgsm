@@ -22,7 +22,7 @@ class ObserverThread(threading.Thread):
                 attributes = re.split('#', wgsm_session.get('session_name'))
                 game = attributes[1]
                 server_name = attributes[2]
-                game_servers[game].process_server_output(server_name, output.copy())
+                game_servers[game].process_server_output(config, server_name, output.copy())
             time.sleep(2)
 
 
@@ -54,35 +54,25 @@ def get_servers():
     return [s for s in tmux_server.sessions if re.search('^wgsm(#.*)*', s.get('session_name'))]
 
 
-def validate_installation(game):
-    if not game_exists(game):
-        unknown_game(game)
-        return
-    return game_servers[game].validate_installation()
-
-
 def init_wgsm():
     # TODO: check steamcmd installation
-    if not os.path.isfile(config['Core']['SteamCMD'] + '/steamcmd.sh'):
+    if not os.path.isfile(config['SteamCMD']['InstallDir'] + '/steamcmd.sh'):
         print('steamcmd is not installed')
         install_steamcmd()
-    else:
-        print('steamcmd is installed')
 
 
 def install_steamcmd():
-    # TODO: install steamcmd
-    #curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
+    # curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz" | tar zxvf -
     print('install steamcmd')
-    if not os.path.exists(config['Core']['SteamCMD']):
-        os.makedirs(config['Core']['SteamCMD'])
-    cmd = 'curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_osx.tar.gz" | tar zxvf - -C ' + config['Core']['SteamCMD']
+    if not os.path.exists(config['SteamCMD']['InstallDir']):
+        os.makedirs(config['SteamCMD']['InstallDir'])
+    cmd = 'curl -sqL "' + config['SteamCMD']['DownloadURL'] + '" | tar zxvf - -C ' + config['SteamCMD']['InstallDir']
     ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     output = ps.communicate()[0]
     print(output)
 
 
-def install(game):
+def install_game(game):
     if not game_exists(game):
         unknown_game(game)
         return
@@ -90,7 +80,14 @@ def install(game):
         print(f'game-server \'{game}\' already installed')
         return
     print(f'installing game-server \'{game}\'')
-    return game_servers[game].install()
+    return game_servers[game].install(config)
+
+
+def validate_game(game):
+    if not game_exists(game):
+        unknown_game(game)
+        return
+    return game_servers[game].validate_installation(config)
 
 
 def create_server(game, server_name):
@@ -114,14 +111,14 @@ def start_server(game, server_name):
     if len(server_sessions) == 0:
         server_not_found(server_name)
         return
-    if not game_servers[game].validate_installation():
+    if not game_servers[game].validate_installation(config):
         success = install(game)
         if not success:
             print(f'installation of game \'{game}\' failed')
             return
     print(f'starting server \'{server_name}\'')
     server_session = server_sessions[0]
-    game_servers[game].start(server_session)
+    game_servers[game].start(config, server_session)
 
 
 def start_observing():

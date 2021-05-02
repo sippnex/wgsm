@@ -5,14 +5,17 @@ import re
 
 class CsgoServer:
 
-    def process_server_output(self, server_name: str, output: list):
+    def process_server_output(self, config, server_name: str, output: list):
         # TODO: process server output
         print(output)
 
-    def validate_installation(self):
+    def validate_installation(self, config):
         completed_process = subprocess.run(
-            ['/Users/juliansobotka/Documents/Projekte/github/wgsm/steamcmd/steamcmd.sh', '+runscript',
-             '/Users/juliansobotka/Documents/Projekte/github/wgsm/server/csgo/steamcmd_validate.txt'],
+            [config['SteamCMD']['InstallDir'] + '/steamcmd.sh',
+            '+force_install_dir',
+            config['Gameservers']['InstallDir'] + '/cs16_ds',
+            '+runscript',
+            config['WGSM']['InstallDir'] + '/server/csgo/steamcmd_validate.txt'],
             capture_output=True)
         for line in completed_process.stdout.decode('utf8').split('\n'):
             if re.search('^ERROR! Failed to install app \'.*\' \(Invalid platform\)', line):
@@ -20,10 +23,13 @@ class CsgoServer:
                 return False
         return True
 
-    def install(self):
+    def install(self, config):
         completed_process = subprocess.run(
-            ['/Users/juliansobotka/Documents/Projekte/github/wgsm/steamcmd/steamcmd.sh', '+runscript',
-             '/Users/juliansobotka/Documents/Projekte/github/wgsm/server/csgo/steamcmd_validate.txt'],
+            [config['SteamCMD']['InstallDir'] + '/steamcmd.sh',
+            '+force_install_dir',
+            config['Gameservers']['InstallDir'] + '/cs16_ds',
+            '+runscript',
+            config['WGSM']['InstallDir'] + '/server/csgo/steamcmd_validate.txt'],
             capture_output=True)
         for line in completed_process.stdout.decode('utf8').split('\n'):
             if re.search('ERROR! Failed to install app \'.*\' \(Invalid platform\)', line):
@@ -31,8 +37,8 @@ class CsgoServer:
                 return False
         return True
 
-    def start(self, tmux_session: libtmux.Session):
-        tmux_session.attached_pane.send_keys('/Users/juliansobotka/Documents/Projekte/github/wgsm/csgo_ds/srcds_run')
+    def start(self, config, tmux_session: libtmux.Session):
+        tmux_session.attached_pane.send_keys(config['Gameservers']['InstallDir'] + '/csgo_ds/srcds_run')
 
-    def status(self, tmux_session: libtmux.Session):
+    def status(self, config, tmux_session: libtmux.Session):
         return 'running'

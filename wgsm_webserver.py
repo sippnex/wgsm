@@ -5,12 +5,8 @@ from flask_socketio import SocketIO, emit, disconnect
 from re import search
 from flask_login import UserMixin, LoginManager, login_required, login_user, logout_user, current_user
 from passlib.apache import HtpasswdFile
-import configparser
 
 import wgsm_core
-
-config = configparser.ConfigParser()
-config.read('wgsm.ini')
 
 app_version = '0.1.0'
 

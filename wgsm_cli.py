@@ -13,21 +13,21 @@ def command_list(argv):
     print(servers)
 
 
+def command_install(argv):
+    if len(argv) == 3:
+        wgsm_core.install_game(argv[2])
+    else:
+        invalid_arguments()
+
+
 def command_validate(argv):
     if len(argv) == 3:
-        success = wgsm_core.validate_installation(argv[2])
+        success = wgsm_core.validate_game(argv[2])
         if success == True:
             print('Validation successful')
         else:
             print('Validation failed')
 
-    else:
-        invalid_arguments()
-
-
-def command_install(argv):
-    if len(argv) == 3:
-        wgsm_core.install(argv[2])
     else:
         invalid_arguments()
 

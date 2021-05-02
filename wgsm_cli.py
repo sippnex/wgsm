@@ -49,6 +49,8 @@ def command_start(argv):
 if len(sys.argv) < 2:
     invalid_arguments()
 
+wgsm_core.init_wgsm()
+
 if sys.argv[1] == 'list':
     command_list(sys.argv)
 elif sys.argv[1] == 'validate':

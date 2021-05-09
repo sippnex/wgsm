@@ -76,9 +76,6 @@ def install_game(game):
     if not game_exists(game):
         unknown_game(game)
         return
-    if validate_game(game):
-        print(f'game-server \'{game}\' already installed')
-        return
     print(f'installing game-server \'{game}\'')
     return game_servers[game].install(config)
 
@@ -87,7 +84,7 @@ def validate_game(game):
     if not game_exists(game):
         unknown_game(game)
         return
-    return game_servers[game].validate_installation(config)
+    return game_servers[game].validate(config)
 
 
 def create_server(game, server_name):
@@ -111,7 +108,7 @@ def start_server(game, server_name):
     if len(server_sessions) == 0:
         server_not_found(server_name)
         return
-    if not game_servers[game].validate_installation(config):
+    if not game_servers[game].validate(config):
         success = install(game)
         if not success:
             print(f'installation of game \'{game}\' failed')

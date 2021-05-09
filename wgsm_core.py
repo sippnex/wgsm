@@ -48,7 +48,7 @@ def server_already_exists(server_name):
 
 
 def game_exists(game):
-    return game == 'csgo' || game == 'cs16'
+    return game == 'csgo' or game == 'cs16'
 
 
 def get_servers():

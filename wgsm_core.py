@@ -7,6 +7,7 @@ import os.path
 import subprocess
 
 from server.csgo.csgo_server import CsgoServer
+from server.cs16.cs16_server import Cs16Server
 
 
 class ObserverThread(threading.Thread):
@@ -47,7 +48,7 @@ def server_already_exists(server_name):
 
 
 def game_exists(game):
-    return game == 'csgo'
+    return game == 'csgo' || game == 'cs16'
 
 
 def get_servers():
@@ -128,5 +129,6 @@ config.read('wgsm.ini')
 tmux_server = libtmux.Server()
 
 game_servers = {
-    'csgo': CsgoServer()
+    'csgo': CsgoServer(),
+    'cs16': Cs16Server()
 }
